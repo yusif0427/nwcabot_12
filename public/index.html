@@ -1,0 +1,371 @@
+﻿<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Nwca Bot | Discord Bot</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600;700&display=swap');
+
+    :root {
+      --bg: #0b1020;
+      --bg-2: #0f1b2d;
+      --card: rgba(12, 20, 35, 0.78);
+      --line: rgba(255, 255, 255, 0.08);
+      --text: #e9f0f8;
+      --muted: #a4b1c2;
+      --accent: #2ee6a6;
+      --accent-2: #f2b12d;
+      --shadow: 0 18px 60px rgba(3, 8, 18, 0.55);
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      min-height: 100vh;
+    }
+
+    body::before,
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: -1;
+    }
+    body::before {
+      background:
+        radial-gradient(1200px 600px at 10% 10%, rgba(46, 230, 166, 0.12), transparent 60%),
+        radial-gradient(900px 500px at 90% 20%, rgba(242, 177, 45, 0.12), transparent 60%),
+        radial-gradient(700px 500px at 20% 90%, rgba(94, 174, 255, 0.12), transparent 60%);
+    }
+    body::after {
+      background-image:
+        linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px),
+        linear-gradient(180deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+      background-size: 80px 80px;
+      opacity: 0.2;
+    }
+
+    .shell {
+      width: min(1100px, 92vw);
+      margin: 56px auto 64px;
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+
+    .top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .logo {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, rgba(46, 230, 166, 0.9), rgba(242, 177, 45, 0.95));
+      display: grid;
+      place-items: center;
+      color: #081018;
+      font-weight: 700;
+      font-size: 20px;
+      box-shadow: 0 12px 30px rgba(46, 230, 166, 0.3);
+    }
+
+    .brand .name {
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: 0.4px;
+    }
+
+    .brand .tag {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1.4px;
+      color: var(--accent-2);
+    }
+
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(46, 230, 166, 0.35);
+      background: rgba(46, 230, 166, 0.08);
+      color: #b9f7dc;
+      font-size: 13px;
+      font-weight: 600;
+    }
+    .status .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 12px rgba(46, 230, 166, 0.7);
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 22px;
+      align-items: stretch;
+    }
+
+    .hero h1 {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(32px, 4vw, 52px);
+      margin: 0 0 12px;
+      line-height: 1.08;
+      letter-spacing: 0.2px;
+    }
+
+    .hero p {
+      margin: 0 0 18px;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.7;
+    }
+
+    .buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 8px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 18px;
+      border-radius: 10px;
+      border: 1px solid transparent;
+      text-decoration: none;
+      font-weight: 600;
+      transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #04120c;
+      box-shadow: 0 16px 30px rgba(46, 230, 166, 0.35);
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 24px 38px rgba(46, 230, 166, 0.45);
+    }
+
+    .btn-ghost {
+      border-color: var(--line);
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.03);
+    }
+    .btn-ghost:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 28px rgba(12, 20, 35, 0.6);
+    }
+
+    .hero-card {
+      border-radius: 18px;
+      padding: 20px 20px 18px;
+      background: var(--card);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+      display: grid;
+      gap: 12px;
+      align-content: start;
+    }
+
+    .hero-card h3 {
+      margin: 0;
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 1.6px;
+      color: var(--accent-2);
+    }
+
+    .hero-card .row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 14px;
+      border-bottom: 1px dashed rgba(255,255,255,0.08);
+      padding-bottom: 10px;
+    }
+    .hero-card .row:last-child { border-bottom: none; padding-bottom: 0; }
+    .hero-card span { color: var(--muted); }
+
+    .meta {
+      margin-top: 18px;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .pill {
+      border-radius: 12px;
+      padding: 12px 14px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.03);
+      font-size: 13px;
+      color: var(--muted);
+    }
+    .pill strong { color: var(--text); display: block; font-size: 15px; margin-top: 4px; }
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .feature {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 18px;
+      box-shadow: var(--shadow);
+    }
+
+    .feature h4 {
+      margin: 0 0 8px;
+      font-size: 16px;
+    }
+
+    .feature p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .cta {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 16px;
+      align-items: center;
+      padding: 18px 20px;
+      border-radius: 16px;
+      border: 1px solid rgba(242, 177, 45, 0.3);
+      background: linear-gradient(135deg, rgba(242, 177, 45, 0.12), rgba(46, 230, 166, 0.08));
+    }
+
+    .cta h3 {
+      margin: 0 0 6px;
+      font-size: 20px;
+    }
+    .cta p { margin: 0; color: var(--muted); font-size: 14px; }
+
+    footer {
+      color: var(--muted);
+      font-size: 12px;
+      text-align: center;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .shell > * { animation: fadeUp 0.7s ease both; }
+    .shell > *:nth-child(2) { animation-delay: 0.05s; }
+    .shell > *:nth-child(3) { animation-delay: 0.1s; }
+    .shell > *:nth-child(4) { animation-delay: 0.15s; }
+    .shell > *:nth-child(5) { animation-delay: 0.2s; }
+
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; }
+      .meta { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .features { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .cta { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 640px) {
+      .features { grid-template-columns: 1fr; }
+      .meta { grid-template-columns: 1fr; }
+      .top { flex-direction: column; align-items: flex-start; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .shell > * { animation: none; }
+      .btn { transition: none; }
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <header class="top">
+      <div class="brand">
+        <div class="logo">N</div>
+        <div>
+          <div class="name">Nwca Bot</div>
+          <div class="tag">Bot denme</div>
+        </div>
+      </div>
+      <div class="status"><span class="dot"></span>Aktif</div>
+    </header>
+
+    <section class="hero">
+      <div>
+        <h1>Sunucunuza hizli, guvenli ve estetik bir bot katin</h1>
+        <p>Moderasyon, eglence, otomasyon ve daha fazlasi tek yerde. Hafif, hizli ve 7/24 acik. Kur, kullan, keyfini cikar.</p>
+        <div class="buttons">
+          <a class="btn btn-primary" href="https://discord.com/oauth2/authorize?client_id=1470117681750610141&permissions=8&integration_type=0&scope=bot+applications.commands" target="_blank">Botu Sunucuya Ekle</a>
+          <a class="btn btn-ghost" href="https://discord.gg/VZ7Nny48kt" target="_blank">Destek Sunucusu</a>
+        </div>
+        <div class="meta">
+          <div class="pill">Durum<strong>Aktif</strong></div>
+          <div class="pill">Prefix<strong>N!</strong></div>
+          <div class="pill">Platform<strong>VSC</strong></div>
+        </div>
+      </div>
+
+      <div class="hero-card">
+        <h3>Canli Durum</h3>
+        <div class="row"><span>Bot</span> Nwca</div>
+        <div class="row"><span>Komutlar</span> /yardim</div>
+        <div class="row"><span>Moduller</span> Moderasyon, Eglence</div>
+        <div class="row"><span>Calisma</span> 7/24</div>
+      </div>
+    </section>
+
+    <section class="features">
+      <div class="feature">
+        <h4>Akilli Moderasyon</h4>
+        <p>Spam ve istenmeyen iceriklere karsi temel koruma ve loglama.</p>
+      </div>
+      <div class="feature">
+        <h4>Eglence ve Etkilesim</h4>
+        <p>Sunucuda hareketlilik saglayan komutlar ve oyunlar.</p>
+      </div>
+      <div class="feature">
+        <h4>Hizli Kurulum</h4>
+        <p>Botu ekle, yetki ver, komutlari hemen kullan.</p>
+      </div>
+    </section>
+
+    <section class="cta">
+      <div>
+        <h3>Toplulugunu buyutmek icin hazir misin?</h3>
+        <p>Tek tikla botu ekle, destek sunucusuna katil ve yardim al.</p>
+      </div>
+      <a class="btn btn-primary" href="https://discord.com/oauth2/authorize?client_id=1470117681750610141&permissions=8&integration_type=0&scope=bot+applications.commands" target="_blank">Hemen Ekle</a>
+    </section>
+
+    <footer>2026 Nwca Bot. Tum haklari saklidir.</footer>
+  </main>
+</body>
+</html>
