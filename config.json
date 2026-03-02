@@ -1,0 +1,18 @@
+{
+    "token": "MTQ3MDExNzY4MTc1MDYxMDE0MQ.Gv1uVo.4_zHOpNn_0StyvyrFV2AlN463aoh7avG3WfU6s",
+	"log":"1470119713144176720",
+    "sahip":"1383133767945945219",
+    "giris-cikis":"1459544428317511681",
+    "desteksunucusu":"https://discord.gg/VZ7Nny48kt",
+    "bot-davet":"https://discord.com/oauth2/authorize?client_id=1470117681750610141&permissions=8&integration_type=0&scope=bot+applications.commands",
+    "bot-adi":"Nwca",
+    "bot-id":"1470117681750610141",
+    "website":"https://oktaydev.com.tr",
+    "webPort": 3200,
+    "durum":"osuruyo",
+    "prefix":"N!",
+    "dmAutoReply":"Merhaba! DM üzerinden destek veremiyorum. Lütfen sunucuda yaz.",
+    "mesajXp": 1,
+    "sesXp":2,
+    "levelXp": 99
+}
